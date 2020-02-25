@@ -1,35 +1,47 @@
 package com.fpoly.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class UserEntity {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class UserEntity extends BaseEntity {
 
 	@Column(name = "username")
-	private String username;
+	private String userName;
 
 	@Column(name = "password")
 	private String password;
 
 	@Column(name = "fullname")
-	private String fullname;
+	private String fullName;
 
-	public String getUsername() {
-		return username;
+	@Column
+	private Integer status;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userid"),
+	inverseJoinColumns = @JoinColumn(name = "roleid"))
+	private List<RoleEntity> role = new ArrayList<>();
+
+	public List<RoleEntity> getRole() {
+		return role;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -40,16 +52,24 @@ public class UserEntity {
 		this.password = password;
 	}
 
-	public String getFullname() {
-		return fullname;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
-	public Long getId() {
-		return id;
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public void setRole(List<RoleEntity> role) {
+		this.role = role;
 	}
 
 }

@@ -5,19 +5,12 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "departs")
-public class DepartsEntity {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class DepartsEntity extends BaseEntity {
 
 	@Column(name = "name")
 	private String name;
@@ -31,10 +24,6 @@ public class DepartsEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public List<StaffsEntity> getStaffs() {

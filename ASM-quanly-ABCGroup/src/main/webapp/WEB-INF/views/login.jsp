@@ -1,3 +1,13 @@
+<%@ page pageEncoding="utf-8" %>
+<%@include file="/common/taglib.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Login</title>
+</head>
+<body>
+
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TAGCODE" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
@@ -11,13 +21,25 @@
                 <div class="form-section">
                     <div class="logo-2">              
                     </div>
+                  <div class="main-div">
+					<c:if test="${param.incorrectAccount != null}">
+					<div class="alert alert-danger">	
+							Username or password incorrect
+					</div>
+						</c:if>
+						<c:if test="${param.accessDenied != null}">
+					<div class="alert alert-danger">	
+							you Not authorize
+					</div>
+				</c:if>
+				</div>
                     <h3>Sign into your account</h3>
-                    <form action="#" method="GET">
+                    <form action="j_spring_security_check" id="formLogin" method="post">
                         <div class="form-group form-box">
-                            <input type="email" name="email" class="input-text" placeholder="Email Address">
+                            <input type="text" class="input-text" id="userName" name="j_username" placeholder="Email Address or User Name">
                         </div>
                         <div class="form-group form-box">
-                            <input type="password" name="Password" class="input-text" placeholder="Password">
+                            <input type="password" name="j_password" class="input-text" placeholder="Password">
                         </div>
                         <div class="form-group mb-0 clearfix">
                             <button type="submit" class="btn-md btn-theme float-left">Login</button>
@@ -39,3 +61,6 @@
         </div>
     </div>
 </div>s
+
+</body>
+</html>

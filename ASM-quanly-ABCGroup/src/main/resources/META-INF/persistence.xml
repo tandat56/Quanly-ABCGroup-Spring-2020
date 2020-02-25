@@ -4,6 +4,8 @@
         <class>com.fpoly.entity.UserEntity</class>
         <class>com.fpoly.entity.RecordsEntity</class>
         <class>com.fpoly.entity.StaffsEntity</class>
+        <class>com.fpoly.entity.RoleEntity</class>
+        <class>com.fpoly.entity.DepartsEntity</class>  
     </persistence-unit>
 </persistence>
 

@@ -5,20 +5,13 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "records")
-public class RecordsEntity {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class RecordsEntity extends BaseEntity {
 
 	@Column(name = "type")
 	private Long type;
@@ -63,10 +56,6 @@ public class RecordsEntity {
 
 	public void setStaffs(StaffsEntity staffs) {
 		this.staffs = staffs;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 }
