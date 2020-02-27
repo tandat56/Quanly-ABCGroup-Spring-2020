@@ -35,7 +35,7 @@ public class StaffsEntity extends BaseEntity {
 	private String phone;
 
 	@Column(name = "salary")
-	private Long salary;
+	private Double salary;
 
 	@Column(name = "note")
 	private String note;
@@ -95,11 +95,11 @@ public class StaffsEntity extends BaseEntity {
 		this.phone = phone;
 	}
 
-	public Long getSalary() {
+	public Double getSalary() {
 		return salary;
 	}
 
-	public void setSalary(Long salary) {
+	public void setSalary(Double salary) {
 		this.salary = salary;
 	}
 

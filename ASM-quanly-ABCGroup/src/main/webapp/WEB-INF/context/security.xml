@@ -30,7 +30,7 @@
     
     <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
     <!-- authen  -->
-    <beans:bean id="customUserDetailsService" class="com.fpoly.service.CustomUserDetailsService" /> 
+    <beans:bean id="customUserDetailsService" class="com.fpoly.service.impl.CustomUserDetailsService" /> 
     <beans:bean id="customSuccessHandler" class="com.fpoly.security.CustomSuccessHandler" />
     
 </beans:beans>
