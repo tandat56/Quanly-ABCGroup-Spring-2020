@@ -11,7 +11,7 @@
 
 	<body>
 		<div class="main-content">
-		<form action="#" id="formSubmit" method="get">
+		<form action="<c:url value='/quan-tri/bai-viet/danh-sach'/>" id="formSubmit" method="get">
 			
 				<div class="main-content-inner">
 					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -53,16 +53,17 @@
 											<table class="table table-bordered">
 												<thead>
 													<tr>
-														<th>Tên bài viết</th>
-														<th>Mô tả ngắn</th>
-														<th>Thao tác</th>
+														<th>Tên nhân viên</th>
+														<th>Email</th>
+														<th>Mô tả</th>
 													</tr>
 												</thead>
 												<tbody>
 													<c:forEach var="item" items="${model.listResult}">
 														<tr>
-															<td>${item.title}</td>
-															<td>${item.shortDescription}</td>
+															<td>${item.name}</td>
+															<td>${item.email}</td>
+															<td>${item.note}</td>
 															<td>																
 																<a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
 																   title="Cập nhật bài viết" href='#'><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -71,7 +72,10 @@
 														</tr>
 													</c:forEach>
 												</tbody>
-											</table>											
+											</table>	
+											<ul class="pagination" id="pagination"></ul>	
+											<input type="hidden" value="" id="page" name="page"/>
+											<input type="hidden" value="" id="limit" name="limit"/>											
 										</div>
 									</div>
 								</div>
@@ -80,11 +84,61 @@
 					</div>
 				</div>
 		</form>
-		</div>
-		<!-- /.main-content -->
+</div>
+<!-- /.main-content -->
 		<script>
+ 		var totalPages = ${model.totalPage};
+		var currentPage = ${model.page};
+		$(function () {
+	        window.pagObj = $('#pagination').twbsPagination({
+	        	//tổng số trang mà chúng ta tính toán được để trả về
+	            totalPages: totalPages,
+	            //số page hiển thị tối đa tại 1 thời điểm	
+	            visiblePages: 10,
+	            startPage: currentPage,
+	            onPageClick: function (event, page) {
+	            	if (currentPage != page) {
+	            		$('#limit').val(2);
+						$('#page').val(page);
+						$('#formSubmit').submit();
+					}
+	            }
+	        });
+	    });
 		
+		function warningBeforeDelete() {
+				swal({
+				  title: "Xác nhận xóa",
+				  text: "Bạn có chắc chắn muốn xóa hay không",
+				  type: "warning",
+				  showCancelButton: true,
+				  confirmButtonClass: "btn-success",
+				  cancelButtonClass: "btn-danger",
+				  confirmButtonText: "Xác nhận",
+				  cancelButtonText: "Hủy bỏ",
+				}).then(function(isConfirm) {
+				  if (isConfirm) {
+						var ids = $('tbody input[type=checkbox]:checked').map(function () {
+				            return $(this).val();
+				        }).get();
+						deleteNew(ids);
+				  }
+				});
+		} 
+		function deleteNew(data) {
+	        $.ajax({
+	            url: '${newAPI}',
+	            type: 'DELETE',
+	            contentType: 'application/json',
+	            data: JSON.stringify(data),
+	            success: function (result) {
+	                window.location.href = "${newURL}?page=1&limit=2&message=delete_success";
+	            },
+	            error: function (error) {
+	            	window.location.href = "${newURL}?page=1&limit=2&message=error_system";
+	            }
+	        });
+	    } 
 		</script>
 	</body>
-
-	</html>
+</html>
