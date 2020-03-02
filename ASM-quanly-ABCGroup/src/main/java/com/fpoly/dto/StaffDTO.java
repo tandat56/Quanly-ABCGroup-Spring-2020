@@ -12,6 +12,12 @@ public class StaffDTO extends AbstractDTO<StaffDTO> {
 	private String phone;
 	private Double salary;
 	private String note;
+	private Long departid;
+	private String departCode;
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
 
 	public String getName() {
 		return name;
@@ -75,6 +81,22 @@ public class StaffDTO extends AbstractDTO<StaffDTO> {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public Long getDepartid() {
+		return departid;
+	}
+
+	public void setDepartid(Long departid) {
+		this.departid = departid;
+	}
+
+	public String getDepartCode() {
+		return departCode;
+	}
+
+	public void setDepartCode(String departCode) {
+		this.departCode = departCode;
 	}
 
 }

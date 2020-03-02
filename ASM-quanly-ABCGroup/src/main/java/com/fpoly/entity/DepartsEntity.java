@@ -15,8 +15,19 @@ public class DepartsEntity extends BaseEntity {
 	@Column(name = "name")
 	private String name;
 
+	@Column(name = "code")
+	private String code;
+
 	@OneToMany(mappedBy = "departs")
 	private List<StaffsEntity> staffs = new ArrayList<>();
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
 
 	public String getName() {
 		return name;

@@ -28,7 +28,7 @@ public class StaffsEntity extends BaseEntity {
 	@Column(name = "photo")
 	private String photo;
 
-	@Column(name = "email")
+	@Column(name = "email", columnDefinition = "TEXT")
 	private String email;
 
 	@Column(name = "phone")
@@ -37,7 +37,7 @@ public class StaffsEntity extends BaseEntity {
 	@Column(name = "salary")
 	private Double salary;
 
-	@Column(name = "note")
+	@Column(name = "note", columnDefinition = "TEXT")
 	private String note;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -46,7 +46,15 @@ public class StaffsEntity extends BaseEntity {
 
 	@OneToMany(mappedBy = "staffs")
 	private List<RecordsEntity> records = new ArrayList<>();
-	
+
+	public List<RecordsEntity> getRecords() {
+		return records;
+	}
+
+	public void setRecords(List<RecordsEntity> records) {
+		this.records = records;
+	}
+
 	public String getName() {
 		return name;
 	}
