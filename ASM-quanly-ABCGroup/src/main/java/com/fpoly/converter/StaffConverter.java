@@ -11,7 +11,12 @@ public class StaffConverter {
 		StaffDTO result = new StaffDTO();
 		result.setId(entity.getId());
 		result.setName(entity.getName());
-		result.setGender(entity.getGender());
+		if (entity.getGender()) {
+			result.setSex("MALE");
+		} else {
+			result.setSex("FEMALE");
+		}
+		//result.setGender(entity.getGender());
 		result.setBrithday(entity.getBrithday());
 		result.setPhoto(entity.getPhoto());
 		result.setEmail(entity.getEmail());
@@ -19,7 +24,6 @@ public class StaffConverter {
 		result.setSalary(entity.getSalary());
 		result.setNote(entity.getNote());
 		result.setDepartCode(entity.getDeparts().getCode());
-
 		return result;
 	}
 
@@ -46,7 +50,6 @@ public class StaffConverter {
 		result.setPhone(dto.getPhone());
 		result.setSalary(dto.getSalary());
 		result.setNote(dto.getNote());
-	
 		return result;
 	}
 }

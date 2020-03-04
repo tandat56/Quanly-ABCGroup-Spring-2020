@@ -14,11 +14,11 @@ public class NewStaffsMapper implements RowMapper<StaffDTO> {
 			staffDTO.setId(resultSet.getLong("id"));
 			staffDTO.setName(resultSet.getString("name"));
 			staffDTO.setGender(resultSet.getBoolean("gender"));
-			staffDTO.setBrithday(resultSet.getDate("brithday"));
+			staffDTO.setBrithday(resultSet.getString("brithday"));
 			staffDTO.setPhoto(resultSet.getString("photo"));
 			staffDTO.setEmail(resultSet.getString("email"));
 			staffDTO.setPhone(resultSet.getString("phone"));
-			staffDTO.setSalary(resultSet.getDouble("salary"));
+			staffDTO.setSalary(resultSet.getString("salary"));
 			staffDTO.setNote(resultSet.getString("note"));
 			staffDTO.setCreatedDate(resultSet.getTimestamp("createddate"));
 			staffDTO.setCreatedBy(resultSet.getString("createdby"));

@@ -1,23 +1,20 @@
 package com.fpoly.dto;
 
-import java.util.Date;
-
 public class StaffDTO extends AbstractDTO<StaffDTO> {
 
 	private String name;
 	private Boolean gender;
-	private Date brithday;
+	private String brithday;
 	private String photo;
 	private String email;
 	private String phone;
-	private Double salary;
+	private String salary;
 	private String note;
 	private Long departid;
 	private String departCode;
-
-	public void setSalary(Double salary) {
-		this.salary = salary;
-	}
+	private String sex;
+	private String photoBase64;
+	private String photoName;
 
 	public String getName() {
 		return name;
@@ -33,14 +30,6 @@ public class StaffDTO extends AbstractDTO<StaffDTO> {
 
 	public void setGender(Boolean gender) {
 		this.gender = gender;
-	}
-
-	public Date getBrithday() {
-		return brithday;
-	}
-
-	public void setBrithday(Date brithday) {
-		this.brithday = brithday;
 	}
 
 	public String getPhoto() {
@@ -67,14 +56,6 @@ public class StaffDTO extends AbstractDTO<StaffDTO> {
 		this.phone = phone;
 	}
 
-	public Double getSalary() {
-		return salary;
-	}
-
-	public void setSalary(double d) {
-		this.salary = d;
-	}
-
 	public String getNote() {
 		return note;
 	}
@@ -99,4 +80,46 @@ public class StaffDTO extends AbstractDTO<StaffDTO> {
 		this.departCode = departCode;
 	}
 
+	public String getBrithday() {
+		return brithday;
+	}
+
+	public void setBrithday(String brithday) {
+		this.brithday = brithday;
+	}
+
+	public String getSalary() {
+		return salary;
+	}
+
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getPhotoBase64() {
+		if (photoBase64 != null) {
+			return photoBase64.split(",")[1];
+		}
+		return photoBase64;
+	}
+
+	public void setPhotoBase64(String photoBase64) {
+		this.photoBase64 = photoBase64;
+	}
+
+	public String getPhotoName() {
+		return photoName;
+	}
+
+	public void setPhotoName(String photoName) {
+		this.photoName = photoName;
+	}
 }

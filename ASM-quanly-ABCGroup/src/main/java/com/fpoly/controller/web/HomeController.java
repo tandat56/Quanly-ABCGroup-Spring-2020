@@ -3,6 +3,9 @@ package com.fpoly.controller.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fpoly.dto.StaffDTO;
+import com.fpoly.service.IStaffService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -11,12 +14,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller(value = "homeControllerOfWeb")
 public class HomeController {
+
+	@Autowired
+	private IStaffService staffService;
 
 	@RequestMapping(value = "/trang-chu", method = RequestMethod.GET)
 	public ModelAndView homePage() {
 		ModelAndView mav = new ModelAndView("web/home");
+		List<StaffDTO> staffDTOS = staffService.findAll();
+		mav.addObject("staffs", staffDTOS);
+		if (staffDTOS != null && staffDTOS.size() > 0) {
+			mav.addObject("bigimage", staffService.findAll().get(0));
+		}
 		return mav;
 	}
 	

@@ -1,8 +1,11 @@
 package com.fpoly.service.impl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fpoly.util.UploadFileUtils;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,6 +30,9 @@ public class StaffService implements IStaffService {
 
 	@Autowired
 	private DepartsRepository departsRepository;
+
+	@Autowired
+	private UploadFileUtils uploadFileUtils;
 
 	@Override
 	// lấy toàn bộ
@@ -66,6 +72,7 @@ public class StaffService implements IStaffService {
 			oldStaff.setDeparts(departs);
 			//convert thằng cũ sang thằng mới
 			staffEntity = staffConverter.toEntity(oldStaff, dto);
+			staffEntity.setPhoto(oldStaff.getPhoto());
 		} else {
 			//đây là id null là nó thêm mới
 			//convert dữ liệu mà thằng dto gửi lên 
@@ -73,8 +80,29 @@ public class StaffService implements IStaffService {
 			//set thêm phòng ban vào
 			staffEntity.setDeparts(departs);
 		}
+		if (dto.getSex().equals("MALE")) {
+			staffEntity.setGender(true);
+		} else {
+			staffEntity.setGender(false);
+		}
+		savePhoto(dto, staffEntity);
 		//xong thì lưu xuống và return lại thằng DTO từ thằng entity
 		return staffConverter.toDTO(staffRepository.save(staffEntity));
+	}
+
+	private void savePhoto(StaffDTO dto, StaffsEntity staffEntity) {
+		String path = "/photo/"+ dto.getPhotoName();
+		if (dto.getPhotoBase64() != null) {
+			if (staffEntity.getPhoto() != null) {
+				if (!path.equals(staffEntity.getPhoto())) {
+					File file = new File("/home/asm/" + staffEntity.getPhoto());
+					file.delete();
+				}
+			}
+			byte[] bytes = Base64.decodeBase64(dto.getPhotoBase64().getBytes());
+			uploadFileUtils.writeOrUpdate(path, bytes);
+			staffEntity.setPhoto(path);
+		}
 	}
 
 	@Override
@@ -83,6 +111,17 @@ public class StaffService implements IStaffService {
 		for(long id: ids) {
 			staffRepository.delete(id);
 		}
+	}
+
+	@Override
+	public List<StaffDTO> findAll() {
+		List<StaffDTO> models = new ArrayList<>();
+		List<StaffsEntity> entities = staffRepository.findAll();
+		for (StaffsEntity item : entities) {
+			StaffDTO staffDTO = staffConverter.toDTO(item);
+			models.add(staffDTO);
+		}
+		return models;
 	}
 }
 

@@ -11,4 +11,5 @@ public interface IStaffService {
 	StaffDTO findById(long id);
 	StaffDTO save(StaffDTO dto);
 	void delete(long[] ids);
+	List<StaffDTO> findAll();
 }

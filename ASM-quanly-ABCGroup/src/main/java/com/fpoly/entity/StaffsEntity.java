@@ -23,9 +23,9 @@ public class StaffsEntity extends BaseEntity {
 	private Boolean gender;
 
 	@Column(name = "brithday")
-	private Date brithday;
+	private String brithday;
 
-	@Column(name = "photo")
+	@Column(name = "photo", columnDefinition = "TEXT")
 	private String photo;
 
 	@Column(name = "email", columnDefinition = "TEXT")
@@ -35,7 +35,7 @@ public class StaffsEntity extends BaseEntity {
 	private String phone;
 
 	@Column(name = "salary")
-	private Double salary;
+	private String salary;
 
 	@Column(name = "note", columnDefinition = "TEXT")
 	private String note;
@@ -71,14 +71,6 @@ public class StaffsEntity extends BaseEntity {
 		this.gender = gender;
 	}
 
-	public Date getBrithday() {
-		return brithday;
-	}
-
-	public void setBrithday(Date brithday) {
-		this.brithday = brithday;
-	}
-
 	public String getPhoto() {
 		return photo;
 	}
@@ -103,14 +95,6 @@ public class StaffsEntity extends BaseEntity {
 		this.phone = phone;
 	}
 
-	public Double getSalary() {
-		return salary;
-	}
-
-	public void setSalary(Double salary) {
-		this.salary = salary;
-	}
-
 	public String getNote() {
 		return note;
 	}
@@ -127,4 +111,19 @@ public class StaffsEntity extends BaseEntity {
 		this.departs = departs;
 	}
 
+	public String getSalary() {
+		return salary;
+	}
+
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}
+
+	public String getBrithday() {
+		return brithday;
+	}
+
+	public void setBrithday(String brithday) {
+		this.brithday = brithday;
+	}
 }

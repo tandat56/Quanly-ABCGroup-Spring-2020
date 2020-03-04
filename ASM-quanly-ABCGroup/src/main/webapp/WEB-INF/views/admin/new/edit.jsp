@@ -19,10 +19,10 @@
 			</script>
 
 			<ul class="breadcrumb">
-				<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">Home</a>
+				<li><i class="ace-icon fa fa-home home-icon"></i> <a href="<c:url value='/trang-chu'/>">Home</a>
 				</li>
 
-				<li><a href="#">Forms</a></li>
+				<li><a href="<c:url value='/trang-chu'/>">Forms</a></li>
 				<li class="active">Form Elements</li>
 			</ul>
 			<!-- /.breadcrumb -->
@@ -53,10 +53,20 @@
 								</div>
 						</div>
 						<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Ảnh đại diện</label>
-								<div class="col-sm-9">
-									<input type="file" class="col-xs-10 col-sm-5" id="photo" name="photo"/>
-								</div>
+							<label class="col-sm-3 control-label no-padding-right">Ảnh đại diện:</label>
+							<div class="col-sm-4">
+								<input type="file" id="uploadImage"/>
+							</div>
+							<div class="col-sm-5" style="margin-bottom: 10px">
+								<c:if test="${not empty model.photo}">
+									<c:set var="image" value="/repository/${model.photo}"/>
+									<img src="${image}" id="viewImage" width="300px" height="300px">
+								</c:if>
+								<c:if test="${empty model.photo}">
+									<img src="<c:url value='/template/image/default.png'/>" id="viewImage" width="300px" height="300px">
+								</c:if>
+							</div>
+							<br/>
 						</div>
 						<div class="form-group">
 						  	<label for="note" class="col-sm-3 control-label no-padding-right">Mô tả ngắn:</label>
@@ -64,19 +74,50 @@
 						  		<form:textarea path="note" rows="5" cols="10" cssClass="form-control" id="note"/>
 						  	</div>
 						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Email</label>
+							<div class="col-sm-9">
+								<form:input path="email" cssClass="col-xs-10 col-sm-5"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Phone</label>
+							<div class="col-sm-9">
+								<form:input path="phone" cssClass="col-xs-10 col-sm-5"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Birth Date</label>
+							<div class="col-sm-9">
+								<form:input path="brithday" cssClass="col-xs-10 col-sm-5"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Salary</label>
+							<div class="col-sm-9">
+								<form:input path="salary" cssClass="col-xs-10 col-sm-5"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Giới tính</label>
+							<div class="col-sm-9">
+								<form:radiobutton path="sex" value="MALE"/>Nam
+								<form:radiobutton path="sex" value="FEMALE"/>Nữ
+							</div>
+						</div>
 						<form:hidden path="id" id="newId"/>
 						<div class="clearfix form-actions">
 							<div class="col-md-offset-3 col-md-9">
 											<c:if test="${not empty model.id}">
 												<button class="btn btn-info" type="button" id="btnAddOrUpdateNew">
 													<i class="ace-icon fa fa-check bigger-110"></i>
-													Cập nhật bài viết
+													Cập nhật nhân viên
 												</button>
 											</c:if>
 											<c:if test="${empty model.id}">
 												<button class="btn btn-info" type="button" id="btnAddOrUpdateNew">
 													<i class="ace-icon fa fa-check bigger-110"></i>
-													Thêm bài viết
+													Thêm nhân viên
 												</button>
 											</c:if>
 
@@ -95,6 +136,8 @@
 </div>	
 
 <script>
+    var photoBase64 = '';
+    var photoName = '';
 	 $('#btnAddOrUpdateNew').click(function (e) {
 	    e.preventDefault();
 	    var data = {};
@@ -102,13 +145,17 @@
 	    $.each(formData, function (i, v) {
 	        data[""+v.name+""] = v.value;
 	    });
+         if (photoBase64 != '') {
+             data['photoBase64'] = photoBase64;
+             data['photoName'] = photoName;
+         }
 	    var id = $('#newId').val();
 	    if (id == "") {
 	    	addNew(data);
 	    } else {
 	    	updateNew(data);
 	    }
-	}	
+	})
 	function addNew(data) {
 		$.ajax({
 	        url: '${newAPI}',
@@ -140,7 +187,28 @@
 	        	window.location.href = "${editNewURL}?id="+result.id+"&message=error_system";
 	        }
 	    });
-	} 
+	}
+
+    $('#uploadImage').change(function (event) {
+        var reader = new FileReader();
+        var file = $(this)[0].files[0];
+        reader.onload = function(e){
+            photoBase64 = e.target.result;
+            photoName = file.name;
+        };
+        reader.readAsDataURL(file);
+        openImage(this, "viewImage");
+    });
+
+    function openImage(input, imageView) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#' +imageView).attr('src', reader.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 </body>
 </html>
