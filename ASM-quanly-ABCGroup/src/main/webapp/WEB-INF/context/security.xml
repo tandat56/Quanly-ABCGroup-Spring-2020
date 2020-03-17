@@ -32,5 +32,4 @@
     <!-- authen  -->
     <beans:bean id="customUserDetailsService" class="com.fpoly.service.impl.CustomUserDetailsService" /> 
     <beans:bean id="customSuccessHandler" class="com.fpoly.security.CustomSuccessHandler" />
-    
 </beans:beans>

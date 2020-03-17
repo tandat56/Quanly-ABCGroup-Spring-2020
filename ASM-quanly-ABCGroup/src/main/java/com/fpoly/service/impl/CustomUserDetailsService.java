@@ -44,5 +44,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 		myUser.setFullName(userEntity.getFullName());
 		return myUser;
 	}
-
 }
+
+
+
+

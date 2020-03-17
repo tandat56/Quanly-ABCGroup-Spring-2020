@@ -14,8 +14,7 @@ import com.fpoly.service.IStaffService;;
 public class NewAPI {
 	
 	@Autowired
-	private IStaffService staffService;
-	
+	private IStaffService staffService;	
 	
 	@PostMapping("/api/new")
 	public StaffDTO createStaff(@RequestBody StaffDTO StaffDTO) {
@@ -32,3 +31,10 @@ public class NewAPI {
 		staffService.delete(ids);
 	}
 }
+
+
+
+
+
+
+
