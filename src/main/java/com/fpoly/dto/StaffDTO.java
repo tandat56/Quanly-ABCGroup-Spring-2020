@@ -16,6 +16,7 @@ public class StaffDTO extends AbstractDTO<StaffDTO> {
 	private String photoBase64;
 	private String photoName;
 
+	
 	public String getName() {
 		return name;
 	}

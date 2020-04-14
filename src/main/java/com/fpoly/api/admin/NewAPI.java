@@ -17,6 +17,7 @@ public class NewAPI {
 	private IStaffService staffService;	
 	
 	@PostMapping("/api/new")
+	//cần cái chuỗi json map vào cái dto
 	public StaffDTO createStaff(@RequestBody StaffDTO StaffDTO) {
 		return staffService.save(StaffDTO);
 	}
